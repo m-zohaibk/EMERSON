@@ -1,0 +1,28 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-dashboard",
+      "description": "A high-tech dashboard for Emerson Connect university portal",
+      "imageUrl": "https://picsum.photos/seed/hero1/800/400",
+      "imageHint": "University App Dashboard"
+    },
+    {
+      "id": "campus-navigator",
+      "description": "Mobile view of a campus map with navigation markers",
+      "imageUrl": "https://picsum.photos/seed/nav1/600/800",
+      "imageHint": "Campus Map Navigation"
+    },
+    {
+      "id": "ai-chat",
+      "description": "AI conversational interface for a student portal",
+      "imageUrl": "https://picsum.photos/seed/ai1/600/800",
+      "imageHint": "AI Chat Assistant"
+    },
+    {
+      "id": "academic-transcript",
+      "description": "Structured digital academic result transcript",
+      "imageUrl": "https://picsum.photos/seed/trans1/600/800",
+      "imageHint": "Student Academic Transcript"
+    }
+  ]
+}

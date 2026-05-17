@@ -1,0 +1,94 @@
+
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Store student information including roll number and department.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "name": { "type": "string" },
+        "rollNumber": { "type": "string", "description": "University Roll Number (e.g., COSC2311xxxxx)" },
+        "photoUrl": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role", "rollNumber"]
+    },
+    "AcademicResult": {
+      "title": "Academic Result",
+      "description": "Semester results for a specific roll number.",
+      "type": "object",
+      "properties": {
+        "rollNumber": { "type": "string" },
+        "semester": { "type": "string" },
+        "gpa": { "type": "number", "description": "SGPA (Semester Grade Point Average)" },
+        "cgpa": { "type": "number", "description": "CGPA (Cumulative Grade Point Average)" },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "grade": { "type": "string" },
+              "status": { "type": "string" }
+            }
+          }
+        },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["rollNumber", "semester", "gpa"]
+    },
+    "CampusLocation": {
+      "title": "Campus Location",
+      "description": "Details about a physical location or building on campus.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["Classroom", "Office", "Department", "Service", "Other"] },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "description": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "type", "latitude", "longitude"]
+    },
+    "Notice": {
+      "title": "Campus Notice",
+      "description": "An announcement or update for the campus community.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string", "enum": ["Exams", "Admissions", "General", "Emergency"] },
+        "date": { "type": "string", "format": "date" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "category", "date"]
+    }
+  },
+  "auth": {
+    "providers": ["password"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles. Owner can read/write."
+    },
+    "/results/{resultId}": {
+      "schema": "AcademicResult",
+      "description": "Academic results. Accessible by roll number match."
+    },
+    "/locations/{locationId}": {
+      "schema": "CampusLocation",
+      "description": "Public campus locations."
+    },
+    "/notices/{noticeId}": {
+      "schema": "Notice",
+      "description": "Public university announcements."
+    }
+  }
+}

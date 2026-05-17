@@ -1,0 +1,31 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSuperAdmin() {
+      return request.auth != null && request.auth.token.email == 'admin1@gmail.com';
+    }
+
+    match /{document=**} {
+      allow read, write: if isSuperAdmin();
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /results/{resultId} {
+      // Allow read if user is logged in and their profile rollNumber matches the result rollNumber
+      allow read: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rollNumber == resource.data.rollNumber;
+    }
+
+    match /locations/{locationId} {
+      allow read: if true;
+    }
+
+    match /notices/{noticeId} {
+      allow read: if true;
+    }
+  }
+}
